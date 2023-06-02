@@ -3,6 +3,10 @@ import shutil
 import time
 from tempfile import SpooledTemporaryFile
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import pypandoc
 from auth_bearer import JWTBearer
 from crawl.crawler import CrawlWebsite

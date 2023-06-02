@@ -29,6 +29,7 @@ log.txt
 # misc
 .DS_Store
 *.pem
+assets/
 
 # debug
 npm-debug.log*
