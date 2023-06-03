@@ -44,6 +44,7 @@ async def process_file(file: UploadFile, loader_class, file_suffix, enable_summa
             "file_sha1": file_sha1,
             "file_size": file_size,
             "file_name": file_name,
+            "file_extension": os.path.splitext(file_name)[1],
             "chunk_size": chunk_size,
             "chunk_overlap": chunk_overlap,
             "date": dateshort,

@@ -20,26 +20,32 @@ const DocumentData = async ({ documentName }: DocumentDataProps) => {
     }
   );
 
-  const format_value = (value: string) => {
-    console.log(value)
+  const format_value = (key: string, value: string) => {
+  
     const parsed = parseInt(value);
     
-    // check if value is not a string
+    // check if value is not an integer
     if (isNaN(parsed)) {
       return value
     }
 
-    // if value is an Int, display it as unit of bytes
-    const bytes_dict: {[key: number]: string} = {
-      0:"bytes",
-      1:"KB",
-      2:"MB",
-      3:"GB",
-      4:"TB"
-    };
-    const exponent = Math.round(Math.log(parsed) / Math.log(1024));
+    // if value is an Int, format it to a human readable value based on type
+    if (key === "date") { // check if key is date
+      const date = new Date(parseInt(value.substring(0,4)), parseInt(value.substring(4,6)) - 1, parseInt(value.substring(7)));
+      return date.toLocaleDateString()
+    } else { // it's file size in this case
+      const bytes_dict: {[key: number]: string} = {
+        0:"bytes",
+        1:"KB",
+        2:"MB",
+        3:"GB",
+        4:"TB"
+      };
+      const exponent = Math.round(Math.log(parsed) / Math.log(1024));
+  
+      return (parsed / (1024**exponent)).toFixed(2) +" "+ bytes_dict[exponent];
+    }
 
-    return (parsed / (1024**exponent)).toFixed(2) +" "+ bytes_dict[exponent];
   }
 
   // TODO: review the logic of this part and try to use unknown instead of any
@@ -59,7 +65,7 @@ const DocumentData = async ({ documentName }: DocumentDataProps) => {
                 <span className="capitalize font-bold">
                   {k.replaceAll("_", " ")}
                 </span>
-                <span className="">{format_value(documents[0][k]) || "Not Available"}</span>
+                <span className="">{format_value(k, documents[0][k]) || "Not Available"}</span>
               </div>
             );
           })}
