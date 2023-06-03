@@ -163,7 +163,7 @@ async def delete_endpoint(commons: CommonsDep, file_name: str, credentials: dict
 async def download_endpoint(commons: CommonsDep, file_name: str,credentials: dict = Depends(JWTBearer()) ):
     user = User(email=credentials.get('email', 'none'))
     response = commons['supabase'].table("vectors").select(
-        "metadata->>file_name, metadata->>file_size, metadata->>file_extension, metadata->>file_url, metadata->>date", "content").match({"metadata->>file_name": file_name, "user_id": user.email}).execute()
+        "metadata->>file_name, metadata->>file_size, metadata->>file_extension, metadata->>file_url, metadata->>date").match({"metadata->>file_name": file_name, "user_id": user.email}).execute()
     documents = response.data
     # Returns all documents with the same file name
     return {"documents": documents}

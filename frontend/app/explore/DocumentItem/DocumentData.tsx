@@ -21,7 +21,9 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
   }
 
   const format_value = (key: string, value: string) => {
-  
+    console.log(value);
+    console.log(key);
+    
     const parsed = parseInt(value);
     
     // check if value is not an integer
@@ -33,7 +35,7 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
     if (key === "date") { // check if key is date
       const date = new Date(parseInt(value.substring(0,4)), parseInt(value.substring(4,6)) - 1, parseInt(value.substring(7)));
       return date.toLocaleDateString()
-    } else { // it's file size in this case
+    } else if (key === "file_size"){ // check if key is file size
       const bytes_dict: {[key: number]: string} = {
         0:"bytes",
         1:"KB",
@@ -44,6 +46,8 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
       const exponent = Math.round(Math.log(parsed) / Math.log(1024));
   
       return (parsed / (1024**exponent)).toFixed(2) +" "+ bytes_dict[exponent];
+    } else { // key is Content
+      return value
     }
 
   }
