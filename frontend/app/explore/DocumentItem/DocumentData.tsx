@@ -52,7 +52,7 @@ const DocumentData = async ({ documentName }: DocumentDataProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const documents = res.data.documents as any[];
   return (
-    <div className="prose">
+    <div className="prose pb-8">
       <p>No. of documents: {documents.length}</p>
       {/* {documents.map((doc) => (
         <pre key={doc.name}>{JSON.stringify(doc)}</pre>
