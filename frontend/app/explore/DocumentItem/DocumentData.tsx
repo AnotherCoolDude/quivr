@@ -21,9 +21,6 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
   }
 
   const format_value = (key: string, value: string) => {
-    console.log(value);
-    console.log(key);
-    
     const parsed = parseInt(value);
     
     // check if value is not an integer
@@ -65,7 +62,7 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
   }, [axiosInstance, documentName]);
 
   return (
-    <div className="prose dark:prose-invert">
+    <div className="prose dark:prose-invert pb-4">
       <h1 className="text-bold text-3xl break-words">{documentName}</h1>
       <p>No. of chunks: {documents.length}</p>
 
@@ -78,7 +75,7 @@ const DocumentData = ({ documentName }: DocumentDataProps): JSX.Element => {
                   {doc.replaceAll("_", " ")}
                 </p>
                 <span className="break-words my-auto">
-                  {documents[0][doc] || "Not Available"}
+                  {format_value(doc, documents[0][doc]) || "Not Available"}
                 </span>
               </div>
             );
