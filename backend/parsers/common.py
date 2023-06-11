@@ -12,7 +12,7 @@ from utils.file import compute_sha1_from_content, compute_sha1_from_file
 from utils.vectors import create_summary, create_vector, documents_vector_store
 
 
-async def process_file(file: UploadFile, loader_class, file_suffix, enable_summarization, user):
+async def process_file(file: UploadFile, loader_class, file_suffix, enable_summarization, user, user_openai_api_key):
     documents = []
     file_name = file.filename
     file_size = file.file._file.tell()  # Getting the size of the file
@@ -52,7 +52,7 @@ async def process_file(file: UploadFile, loader_class, file_suffix, enable_summa
         }
         doc_with_metadata = Document(
             page_content=doc.page_content, metadata=metadata)
-        create_vector(user.email, doc_with_metadata)
+        create_vector(user.email, doc_with_metadata, user_openai_api_key)
             #     add_usage(stats_db, "embedding", "audio", metadata={"file_name": file_meta_name,"file_type": ".txt", "chunk_size": chunk_size, "chunk_overlap": chunk_overlap})
 
         if enable_summarization and ids and len(ids) > 0:
@@ -62,6 +62,12 @@ async def process_file(file: UploadFile, loader_class, file_suffix, enable_summa
 
 async def file_already_exists(supabase, file, user):
     file_content = await file.read()
+    file_sha1 = compute_sha1_from_content(file_content)
+    response = supabase.table("vectors").select("id").filter("metadata->>file_sha1", "eq", file_sha1) \
+        .filter("user_id", "eq", user.email).execute()
+    return len(response.data) > 0
+
+async def file_already_exists_from_content(supabase, file_content, user):
     file_sha1 = compute_sha1_from_content(file_content)
     response = supabase.table("vectors").select("id").filter("metadata->>file_sha1", "eq", file_sha1) \
         .filter("user_id", "eq", user.email).execute()
