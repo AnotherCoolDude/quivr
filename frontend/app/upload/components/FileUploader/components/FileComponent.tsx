@@ -1,3 +1,4 @@
+import { formatValue } from "@/lib/helpers/formatValue";
 import { motion } from "framer-motion";
 import { Dispatch, RefObject, SetStateAction, forwardRef } from "react";
 import { MdClose } from "react-icons/md";
@@ -24,7 +25,7 @@ const FileComponent = forwardRef(
               {file.name}
             </span>
             <span className="text-xs opacity-50 overflow-hidden text-ellipsis">
-              {(file.size / 1000).toFixed(3)} kb
+              {formatValue("file_size", file.size.toString())}
             </span>
           </div>
         </div>
