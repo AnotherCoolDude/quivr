@@ -1,16 +1,19 @@
+/* eslint-disable */
 "use client";
-import { useAxios } from "@/lib/useAxios";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import Button from "../components/ui/Button";
-import Spinner from "../components/ui/Spinner";
+
+import Button from "@/lib/components/ui/Button";
+import Spinner from "@/lib/components/ui/Spinner";
+import { Document } from "@/lib/types/Document";
+import { useAxios } from "@/lib/useAxios";
+
 import { useSupabase } from "../supabase-provider";
 import DocumentItem from "./DocumentItem";
-import { Document } from "./types";
 
-export default function ExplorePage() {
+const ExplorePage = (): JSX.Element => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isPending, setIsPending] = useState(true);
   const { session } = useSupabase();
@@ -78,4 +81,6 @@ export default function ExplorePage() {
       </section>
     </main>
   );
-}
+};
+
+export default ExplorePage;

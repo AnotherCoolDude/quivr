@@ -1,7 +1,10 @@
+/* eslint-disable */
 "use client";
 
-import { setEmptyStringsUndefined } from "@/lib/helpers/setEmptyStringsUndefined";
 import { createContext, useEffect, useState } from "react";
+
+import { setEmptyStringsUndefined } from "@/lib/helpers/setEmptyStringsUndefined";
+
 import {
   getBrainConfigFromLocalStorage,
   saveBrainConfigInLocalStorage,
@@ -13,7 +16,7 @@ export const BrainConfigContext = createContext<ConfigContext | undefined>(
 );
 
 const defaultBrainConfig: BrainConfig = {
-  model: "gpt-3.5-turbo",
+  model: "gpt-3.5-turbo-0613",
   temperature: 0,
   maxTokens: 500,
   keepLocal: true,

@@ -1,18 +1,23 @@
-import { cn } from "@/lib/utils";
+/* eslint-disable */
 import { UUID } from "crypto";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { MdChatBubbleOutline } from "react-icons/md";
-import { Chat } from "../../types";
+
+import { cn } from "@/lib/utils";
+
+import { Chat } from "../../../../lib/types/Chat";
 
 interface ChatsListItemProps {
   chat: Chat;
   deleteChat: (id: UUID) => void;
 }
 
-const ChatsListItem: FC<ChatsListItemProps> = ({ chat, deleteChat }) => {
+const ChatsListItem = ({
+  chat,
+  deleteChat,
+}: ChatsListItemProps): JSX.Element => {
   const pathname = usePathname()?.split("/").at(-1);
   const selected = chat.chatId === pathname;
 

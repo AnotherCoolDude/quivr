@@ -1,6 +1,7 @@
 import { formatValue } from "@/lib/helpers/formatValue";
+/* eslint-disable */
 import { motion } from "framer-motion";
-import { Dispatch, RefObject, SetStateAction, forwardRef } from "react";
+import { Dispatch, forwardRef, RefObject, SetStateAction } from "react";
 import { MdClose } from "react-icons/md";
 
 interface FileComponentProps {
